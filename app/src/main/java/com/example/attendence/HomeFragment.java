@@ -1,30 +1,55 @@
 package com.example.attendence;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.os.Bundle;
-
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.Toast;
-
+import android.widget.Spinner;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import java.util.ArrayList;
+import java.util.List;
 
 public class HomeFragment extends Fragment {
 
     private LinearLayout buttonContainer;
+    private ButtonViewModel buttonViewModel;
+    private Spinner yearSpinner, branchSpinner, sectionSpinner;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.activity_home_fragment, container, false);
         buttonContainer = rootView.findViewById(R.id.buttonContainer);
+        yearSpinner = rootView.findViewById(R.id.yearSpinner);
+        branchSpinner = rootView.findViewById(R.id.branchSpinner);
+        sectionSpinner = rootView.findViewById(R.id.sectionSpinner);
+
+        // Initialize ViewModel
+        buttonViewModel = new ViewModelProvider(requireActivity()).get(ButtonViewModel.class);
+
+        // Recreate buttons from ViewModel data
+        for (String buttonText : buttonViewModel.getButtonData()) {
+            addButton(buttonText);
+        }
+
+        // Set up adapters for spinners
+        ArrayAdapter<CharSequence> yearAdapter = ArrayAdapter.createFromResource(requireContext(), R.array.year_array, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> branchAdapter = ArrayAdapter.createFromResource(requireContext(), R.array.branch_array, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> sectionAdapter = ArrayAdapter.createFromResource(requireContext(), R.array.section_array, android.R.layout.simple_spinner_item);
+
+        yearAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        branchAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        sectionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        yearSpinner.setAdapter(yearAdapter);
+        branchSpinner.setAdapter(branchAdapter);
+        sectionSpinner.setAdapter(sectionAdapter);
 
         Button addButton = rootView.findViewById(R.id.addButton);
         addButton.setOnClickListener(new View.OnClickListener() {
@@ -38,13 +63,28 @@ public class HomeFragment extends Fragment {
     }
 
     private void addButtonClicked() {
+        // Get the selected values from the spinners
+        String selectedYear = yearSpinner.getSelectedItem().toString();
+        String selectedBranch = branchSpinner.getSelectedItem().toString();
+        String selectedSection = sectionSpinner.getSelectedItem().toString();
+
+        // Generate the button text using the selected values
+        String buttonText = selectedYear + " - " + selectedBranch + " - " + selectedSection;
+
+        // Simulate adding a new button with the generated name
+        buttonViewModel.addButton(buttonText);
+        addButton(buttonText);
+    }
+
+    private void addButton(String buttonText) {
         Button newButton = new Button(requireContext());
-        newButton.setText("New Button");
+        newButton.setText(buttonText);
         newButton.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
                 // Remove the long-pressed button
                 buttonContainer.removeView(v);
+                buttonViewModel.getButtonData().remove(buttonText);
                 return true;
             }
         });
@@ -52,13 +92,5 @@ public class HomeFragment extends Fragment {
         params.setMargins(0, 10, 0, 0);
         newButton.setLayoutParams(params);
         buttonContainer.addView(newButton);
-
-        // Move the anonymous button down
-        View anonymousButton = buttonContainer.findViewById(R.id.anonymousButton);
-        if (anonymousButton != null) {
-            LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) anonymousButton.getLayoutParams();
-            layoutParams.topMargin += newButton.getHeight() + 10; // Adjust top margin by new button's height and margin
-            anonymousButton.setLayoutParams(layoutParams);
-        }
     }
 }

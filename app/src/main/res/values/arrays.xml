@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Define year_array -->
+    <string-array name="year_array">
+        <item>First Year</item>
+        <item>Second Year</item>
+        <item>Third Year</item>
+        <item>Fourth Year</item>
+    </string-array>
+
+    <!-- Define branch_array -->
+    <string-array name="branch_array">
+        <item>Computer Science</item>
+        <item>Electrical Engineering</item>
+        <item>Mechanical Engineering</item>
+        <item>Civil Engineering</item>
+        <!-- Add more branches as needed -->
+    </string-array>
+
+    <!-- Define section_array -->
+    <string-array name="section_array">
+        <item>Section A</item>
+        <item>Section B</item>
+        <item>Section C</item>
+        <!-- Add more sections as needed -->
+    </string-array>
+</resources>
