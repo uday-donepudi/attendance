@@ -12,6 +12,24 @@
         android:theme="@style/Theme.Attendence"
         tools:targetApi="31">
         <activity
+            android:name=".MenuFragment_St"
+            android:exported="false" />
+        <activity
+            android:name=".ProfileFragment_St"
+            android:exported="false" />
+        <activity
+            android:name=".NotificationsFragment_St"
+            android:exported="false" />
+        <activity
+            android:name=".DashboardFragment_St"
+            android:exported="false" />
+        <activity
+            android:name=".HomeFragment_St"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity2"
+            android:exported="false" />
+        <activity
             android:name=".ProfileFragment"
             android:exported="false" />
         <activity
