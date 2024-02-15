@@ -9,20 +9,22 @@
         android:id="@+id/addButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="92dp"
+        android:layout_marginStart="172dp"
+        android:layout_marginTop="168dp"
         android:text="Add Button"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
 
     <Button
         android:id="@+id/anonymousButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="144dp"
+        android:layout_marginTop="256dp"
         android:text="Anonymous Button"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="7dp" />
+        tools:layout_editor_absoluteX="133dp"
+        tools:ignore="MissingConstraints" />
 
     <Spinner
         android:id="@+id/yearSpinner"
@@ -41,7 +43,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/yearSpinner" />
+        app:layout_constraintTop_toBottomOf="@+id/yearSpinner"
+        tools:ignore="MissingConstraints"/>
 
     <Spinner
         android:id="@+id/sectionSpinner"
@@ -50,7 +53,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/branchSpinner" />
+        app:layout_constraintTop_toBottomOf="@+id/branchSpinner"
+        tools:ignore="MissingConstraints"/>
 
     <LinearLayout
         android:id="@+id/buttonContainer"
@@ -59,7 +63,9 @@
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/sectionSpinner" />
+        app:layout_constraintTop_toBottomOf="@id/sectionSpinner"
+        app:layout_constraintVertical_bias="0.421" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

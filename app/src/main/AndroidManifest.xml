@@ -12,6 +12,15 @@
         android:theme="@style/Theme.Attendence"
         tools:targetApi="31">
         <activity
+            android:name=".LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Clock2"
+            android:exported="false" />
+        <activity
+            android:name=".Clock1"
+            android:exported="false" />
+        <activity
             android:name=".MenuFragment_St"
             android:exported="false" />
         <activity
