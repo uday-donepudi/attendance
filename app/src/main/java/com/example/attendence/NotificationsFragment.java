@@ -1,5 +1,6 @@
 package com.example.attendence;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,8 @@ import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 
 import java.util.ArrayList;
@@ -49,6 +52,8 @@ public class NotificationsFragment extends Fragment {
         return view;
     }
 
+
+
     private void sendMessage() {
         // Get message from EditText
         String message = messageEditText.getText().toString().trim();
@@ -58,6 +63,28 @@ public class NotificationsFragment extends Fragment {
             messageAdapter.notifyDataSetChanged();
             // Clear EditText after sending message
             messageEditText.getText().clear();
+
+            // Display the message as a notification
+            displayNotification(message);
         }
     }
+
+    @SuppressLint("MissingPermission")
+    private void displayNotification(String message) {
+        // Create a NotificationCompat.Builder
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getContext(), "default")
+                .setSmallIcon(R.drawable.ic_notification)
+
+                         // Set your app's notification icon here
+                .setContentTitle("New Message")
+                .setContentText(message)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+        // Create a NotificationManager
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(getContext());
+
+        // Show the notification
+        notificationManager.notify(1, builder.build());
+    }
+
 }
