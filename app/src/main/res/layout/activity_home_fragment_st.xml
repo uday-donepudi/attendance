@@ -1,24 +1,14 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <LinearLayout
-        android:id="@+id/buttonContainer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" />
-
+    <!-- Define your button -->
     <Button
-        android:id="@+id/addButton"
+        android:id="@+id/openNewPageButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add Button" />
+        android:text="Open New Page"
+        android:layout_centerInParent="true" />
 
-    <Button
-        android:id="@+id/anonymousButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Anonymous Button" />
-
-</LinearLayout>
+</RelativeLayout>

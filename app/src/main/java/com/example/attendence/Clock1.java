@@ -32,16 +32,12 @@ public class Clock1 extends AppCompatActivity {
         homeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Navigate to the home page (MainActivity)
-                startActivity(new Intent(Clock1.this, HomeFragment.class));
+                // Navigate to the MainActivity which will display the HomeFragment
+                startActivity(new Intent(Clock1.this, MainActivity.class));
+                finish();
             }
         });
     }
 
-    // Override onBackPressed to navigate to the home page (MainActivity)
-    @Override
-    public void onBackPressed() {
-        // Navigate to the home page (MainActivity)
-        startActivity(new Intent(this, HomeFragment.class));
-    }
+    // No need to override onBackPressed() since MainActivity should handle fragment navigation
 }
