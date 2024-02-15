@@ -28,7 +28,7 @@ public class ProfileFragment extends Fragment {
         EditText teacherAddressEditText = view.findViewById(R.id.teacherAddressEditText);
 
         Button saveButton = view.findViewById(R.id.saveButton);
-        Button editButton = view.findViewById(R.id.Editbutton);
+
         // You may need to change 'textView3', 'textView' IDs to the appropriate ones if they exist
 
         // Set onClickListener for saveButton
@@ -40,7 +40,7 @@ public class ProfileFragment extends Fragment {
         });
 
         // Set onClickListener for editButton
-        editButton.setOnClickListener(new View.OnClickListener() {
+        saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // Add your edit functionality here
