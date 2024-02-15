@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DonutChartFragment">
+
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/donutChart"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp" />
+
+    <!-- First Text Area -->
+    <TextView
+        android:id="@+id/donutArea1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/donutChart"
+        android:layout_marginTop="16dp"
+        android:padding="8dp"
+        android:text="Text Area 1"
+        android:textSize="16sp" />
+
+    <!-- Second Text Area -->
+    <TextView
+        android:id="@+id/donutArea2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/donutArea1"
+        android:layout_marginTop="16dp"
+        android:padding="8dp"
+        android:text="Text Area 2"
+        android:textSize="16sp" />
+
+</RelativeLayout>

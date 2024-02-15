@@ -1,8 +1,6 @@
 package com.example.attendence;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,11 +12,11 @@ import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
 
 public class NotificationsFragment extends Fragment {
 
@@ -27,9 +25,7 @@ public class NotificationsFragment extends Fragment {
     private Button sendButton;
     private ArrayAdapter<String> messageAdapter;
     private ArrayList<String> messageList;
-    private SharedPreferences sharedPreferences;
 
-    @SuppressLint("MissingInflatedId")
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -37,15 +33,11 @@ public class NotificationsFragment extends Fragment {
 
         // Initialize UI components
         messageListView = view.findViewById(R.id.messageListView);
+        messageEditText = view.findViewById(R.id.messageEditText);
         sendButton = view.findViewById(R.id.sendButton);
 
-        // Initialize SharedPreferences
-        sharedPreferences = getContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-
-        // Load stored messages
-        loadMessages();
-
         // Initialize message list and adapter
+        messageList = new ArrayList<>();
         messageAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, messageList);
         messageListView.setAdapter(messageAdapter);
 
@@ -60,22 +52,7 @@ public class NotificationsFragment extends Fragment {
         return view;
     }
 
-    private void loadMessages() {
-        // Get the stored messages
-        Set<String> messagesSet = sharedPreferences.getStringSet("messages", new HashSet<String>());
-        messageList = new ArrayList<>(messagesSet);
-    }
 
-    private void saveMessage(String message) {
-        // Get the current list of messages
-        Set<String> messagesSet = sharedPreferences.getStringSet("messages", new HashSet<String>());
-
-        // Add the new message to the set
-        messagesSet.add(message);
-
-        // Save the updated set back to SharedPreferences
-        sharedPreferences.edit().putStringSet("messages", messagesSet).apply();
-    }
 
     private void sendMessage() {
         // Get message from EditText
@@ -87,8 +64,27 @@ public class NotificationsFragment extends Fragment {
             // Clear EditText after sending message
             messageEditText.getText().clear();
 
-            // Save the message in SharedPreferences
-            saveMessage(message);
+            // Display the message as a notification
+            displayNotification(message);
         }
     }
+
+    @SuppressLint("MissingPermission")
+    private void displayNotification(String message) {
+        // Create a NotificationCompat.Builder
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getContext(), "default")
+                .setSmallIcon(R.drawable.ic_notification)
+
+                         // Set your app's notification icon here
+                .setContentTitle("New Message")
+                .setContentText(message)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+        // Create a NotificationManager
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(getContext());
+
+        // Show the notification
+        notificationManager.notify(1, builder.build());
+    }
+
 }
