@@ -1,5 +1,6 @@
 package com.example.attendence;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,8 +13,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import java.util.ArrayList;
-import java.util.List;
 
 public class HomeFragment extends Fragment {
 
@@ -34,8 +33,10 @@ public class HomeFragment extends Fragment {
         buttonViewModel = new ViewModelProvider(requireActivity()).get(ButtonViewModel.class);
 
         // Recreate buttons from ViewModel data
-        for (String buttonText : buttonViewModel.getButtonData()) {
-            addButton(buttonText);
+        if (buttonContainer.getChildCount() == 0) { // Check if buttons are already added
+            for (String buttonText : buttonViewModel.getButtonData()) {
+                addButton(buttonText);
+            }
         }
 
         // Set up adapters for spinners
@@ -79,6 +80,14 @@ public class HomeFragment extends Fragment {
     private void addButton(String buttonText) {
         Button newButton = new Button(requireContext());
         newButton.setText(buttonText);
+        newButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Navigate to another page when the button is clicked
+                Intent intent = new Intent(requireContext(), Clock1.class);
+                startActivity(intent);
+            }
+        });
         newButton.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
