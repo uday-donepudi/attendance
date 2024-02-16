@@ -15,6 +15,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+import java.text.DecimalFormat;
+
 public class Clock2 extends AppCompatActivity {
 
     private Button clockButton;
@@ -78,21 +80,40 @@ public class Clock2 extends AppCompatActivity {
         clockButton.setText(percentageCompleted + "% Completed");
     }
 
-    private Location getTeacherLocation() {
-        Location lastKnownLocation = null;
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+    private double[] getTeacherLocation() {
+        double[] coordinates = new double[2]; // Array to store latitude and longitude
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // Request location permissions if not granted
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
         } else {
             // Get last known location from GPS provider
-            lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            Location lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             if (lastKnownLocation == null) {
                 // If GPS provider is unavailable, try network provider
                 lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
             }
+
+            if (lastKnownLocation != null) {
+                // Extract latitude and longitude from the location object
+                coordinates[0] = lastKnownLocation.getLatitude();
+                coordinates[1] = lastKnownLocation.getLongitude();
+            } else {
+                // Handle the case when last known location is not available
+                coordinates[0] = 0.0; // Default latitude
+                coordinates[1] = 0.0; // Default longitude
+            }
         }
-        return lastKnownLocation;
+
+        // Format latitude and longitude values to have up to 5 digits after the decimal point
+        DecimalFormat df = new DecimalFormat("#.#####");
+        coordinates[0] = Double.parseDouble(df.format(coordinates[0]));
+        coordinates[1] = Double.parseDouble(df.format(coordinates[1]));
+
+        return coordinates;
     }
+
 
     @Override
     protected void onStop() {
