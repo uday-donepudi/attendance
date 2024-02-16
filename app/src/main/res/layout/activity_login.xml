@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/bag"
     tools:context=".LoginActivity">
 
     <com.google.android.material.tabs.TabLayout
@@ -11,13 +13,13 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:background="?attr/colorPrimary"
-        android:contentDescription="tab_layout_description"/> <!-- Content description for TabLayout -->
+        android:contentDescription="tab_layout_description" /> <!-- Content description for TabLayout -->
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/tabLayout"
-        android:contentDescription="view_pager_description"/> <!-- Content description for ViewPager -->
+        android:contentDescription="view_pager_description" /> <!-- Content description for ViewPager -->
 
 </RelativeLayout>

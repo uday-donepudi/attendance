@@ -26,8 +26,8 @@ public class LoginActivity extends AppCompatActivity {
         @SuppressLint({"MissingInflatedId", "LocalSuppress"}) TabLayout tabLayout = findViewById(R.id.tabLayout);
 
         TabAdapter adapter = new TabAdapter(getSupportFragmentManager());
-        adapter.addFragment(new LoginFragment(), "Login");
-        adapter.addFragment(new SignupFragment(), "Signup");
+        adapter.addFragment(new LoginFragment(), "TEACHER");
+        adapter.addFragment(new SignupFragment(), "STUDENT");
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
     }
