@@ -11,6 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Email"
+        android:textStyle="bold"
+        android:textColorHint="@color/black"
         android:padding="16dp"
         android:minHeight="56dp"
         android:textSize="16sp"/>
@@ -19,6 +21,8 @@
         android:id="@+id/loginPasswordEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColorHint="@color/black"
+        android:textStyle="bold"
         android:hint="Password"
         android:padding="16dp"
         android:minHeight="56dp"
