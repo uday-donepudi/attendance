@@ -23,7 +23,7 @@ public class Clock2 extends AppCompatActivity {
     private Button homeButton;
     private CountDownTimer countDownTimer;
     private long timeLeftInMillis = 5 * 60 * 1000; // 5 minutes
-    private LocationManager locationManager;
+    private static LocationManager locationManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,7 +80,7 @@ public class Clock2 extends AppCompatActivity {
         clockButton.setText(percentageCompleted + "% Completed");
     }
 
-    private double[] getTeacherLocation() {
+    double[] getTeacherLocation() {
         double[] coordinates = new double[2]; // Array to store latitude and longitude
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&

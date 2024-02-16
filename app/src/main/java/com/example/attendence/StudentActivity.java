@@ -6,14 +6,17 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
-import java.text.DecimalFormat;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import java.text.DecimalFormat;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class StudentActivity extends AppCompatActivity {
 
     private LocationManager locationManager;
+    private int minutesNearTeacher = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +24,31 @@ public class StudentActivity extends AppCompatActivity {
         setContentView(R.layout.activity_student);
 
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+        // Start a timer to check distance every minute
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                boolean presence = isPresent();
+                System.out.println("Is student present? " + presence);
+
+                if (presence) {
+                    minutesNearTeacher++;
+                }
+            }
+        }, 0, 60 * 1000); // Check every 1 minute (60 seconds * 1000 milliseconds)
+
+        // Stop the timer after 90 minutes
+        Timer stopTimer = new Timer();
+        stopTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                timer.cancel();
+                boolean isAttendanceSufficient = checkAttendance(minutesNearTeacher);
+                System.out.println("Is attendance sufficient? " + isAttendanceSufficient);
+            }
+        }, 90 * 60 * 1000); // Stop after 90 minutes
     }
 
     private double[] getStudentLocation() {
@@ -57,7 +85,37 @@ public class StudentActivity extends AppCompatActivity {
         return coordinates;
     }
 
+    private double getDistance() {
+        // Get teacher's location
+        double[] teacherCoordinates = Clock2.getTeacherLocation();
 
+        // Get student's location
+        double[] studentCoordinates = getStudentLocation();
+
+        // Calculate the Euclidean distance
+        double diffLatitude = teacherCoordinates[0] - studentCoordinates[0];
+        double diffLongitude = teacherCoordinates[1] - studentCoordinates[1];
+        double squaredDiffLat = Math.pow(diffLatitude, 2);
+        double squaredDiffLon = Math.pow(diffLongitude, 2);
+        double sumOfSquaredDiffs = squaredDiffLat + squaredDiffLon;
+        double distance = Math.sqrt(sumOfSquaredDiffs);
+
+        return distance;
+    }
+
+    private boolean isPresent() {
+        // Calculate the Euclidean distance
+        double distance = getDistance();
+
+        // Check if distance is less than the threshold
+        double threshold = 0.000067;
+        return distance < threshold;
+    }
+
+    private boolean checkAttendance(int minutesNearTeacher) {
+        // Check if the percentage of time near teacher is greater than 75%
+        return (minutesNearTeacher >= 0.75 * 90);
+    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
