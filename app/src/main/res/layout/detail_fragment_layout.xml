@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".DetailFragment"
+    android:background="@drawable/bag"
     android:id="@+id/donut_container">
 
     <!-- LinePlot -->
