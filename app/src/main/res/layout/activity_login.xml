@@ -8,31 +8,35 @@
     tools:context=".LoginActivity">
 
     <!-- TabLayout -->
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tabLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:background="?attr/colorPrimary"
-        android:contentDescription="tab_layout_description" />
 
     <!-- ViewPager -->
+
+    <!-- ImageView -->
+
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/tabLayout"
-        android:contentDescription="view_pager_description" />
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="178dp"
+        android:contentDescription="view_pager_description">
 
-    <!-- ImageView -->
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorPrimary"
+            android:contentDescription="tab_layout_description" />
+    </androidx.viewpager.widget.ViewPager>
+
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="408dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tabLayout"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="500dp"
+        android:layout_marginTop="-231dp"
+        android:layout_marginBottom="510dp"
         android:contentDescription="srkr_image_description"
         android:src="@drawable/srkr" />
 
